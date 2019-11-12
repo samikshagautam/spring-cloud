@@ -1,0 +1,26 @@
+version: "3"
+services:
+  spring-batch:
+    restart: always
+    image: cloud/product-service
+    ports:
+      - "8082:8082"
+    networks:
+      - project-network
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql
+    networks:
+      - project-network
+    ports:
+      - "13306:3306"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=User@123
+      - MYSQL_ROOT_PASSWORD=User@123
+      - MYSQL_DATABASE=micro_service
+
+networks:
+  project-network:
